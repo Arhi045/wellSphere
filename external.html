@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Links</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #76c7c0;
+            margin: 10px auto;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+        .card h3 {
+            color: #76c7c0;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        /* Floating Button Styles */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #76c7c0;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .dropdown {
+            position: fixed;
+            bottom: 80px; /* Position above the button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .dropdown-item {
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: #f4a261; /* Change background on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- External Links Section -->
+        <section class="section" id="external-links">
+            <h2>External Link Resources</h2>
+            <div class="card">
+                <h3>Mental Health America</h3>
+                <p><strong>Description:</strong> A leading community-based nonprofit organization dedicated to addressing the needs of those living with mental illness.</p>
+                <a href="https://www.mhanational.org/" target="_blank">Visit Website</a>
+            </div>
+            <div class="card">
+                <h3>National Institute of Mental Health (NIMH)</h3>
+                <p><strong>Description:</strong> The leading federal agency for research on mental disorders.</p>
+                <a href="https://www.nimh.nih.gov/" target="_blank">Visit Website</a>
+            </div>
+            <div class="card">
+                <h3>World Health Organization (WHO)</h3>
+                <p><strong>Description:</strong> A specialized agency of the United Nations responsible for international public health.</p>
+                <a href="https://www.who.int/" target="_blank">Visit Website</a>
+            </div>
+            <div class="card">
+                <h3>American Psychological Association (APA)</h3>
+                <p><strong>Description:</strong> The leading scientific and professional organization representing psychology in the United States.</p>
+                <a href="https://www.apa.org/" target="_blank">Visit Website</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Button -->
+    <button class="floating-button" id="hamburger-button">&#9776;</button>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown-menu">
+        <a href="insights.html" class="dropdown-item">Home</a>
+        <a href="library.html" class="dropdown-item">Library</a>
+    </div>
+
+    <script>
+        // Toggle dropdown menu
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        hamburgerButton.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Softer font */
+            padding: 20px;
+            background-color: #e9f4fb; /* Light background color */
+            color: #333;
+            margin: 0;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px; /* Rounded corners */
+            background: white; /* Card background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .question label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .slider {
+            -webkit-appearance: none; /* Remove default styling */
+            appearance: none;
+            width: 100%;
+            height: 15px;
+            background: lightblue; /* Light blue color */
+            border-radius: 10px; /* Rounded track */
+            outline: none; /* Remove outline */
+            opacity: 0.7; /* Slightly transparent */
+            transition: opacity .2s; /* Smooth transition */
+        }
+        .slider:hover {
+            opacity: 1; /* Fully visible on hover */
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Remove default styling */
+            appearance: none;
+            width: 25px; /* Thumb width */
+            height: 25px; /* Thumb height */
+            border-radius: 50%; /* Circular thumb */
+            background: #007bff; /* Thumb color */
+            cursor: pointer; /* Pointer cursor */
+        }
+        .slider::-moz-range-thumb {
+            width: 25px; /* Thumb width */
+            height: 25px; /* Thumb height */
+            border-radius: 50%; /* Circular thumb */
+            background: #007bff; /* Thumb color */
+            cursor: pointer; /* Pointer cursor */
+        }
+        .slider-range {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .btn {
+            display: block;
+            margin: 0 auto; /* Center button */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px; /* Rounded button */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        .btn:hover {
+            background-color: #0056b3; /* Darker on hover */
+        }
+        .low { color: #d9534f; }    /* Red */
+        .medium { color: #f0ad4e; } /* Yellow/Orange */
+        .high { color: #5cb85c; }   /* Green */
+        .neutral { color: #5bc0de; } /* Blue */
+    </style>
+</head>
+<body>
+    <h2>Daily Health Questionnaire</h2>
+    <form id="healthForm">
+        <!-- Mood/Mental Health Questions -->
+        <div class="question">
+            <label for="mood">How would you rate your overall mood today?</label>
+            <input type="range" id="mood" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Low</span>
+                <span class="medium">Neutral</span>
+                <span class="high">High</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="anxiety">How often did you feel anxious or stressed today?</label>
+            <input type="range" id="anxiety" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="neutral">Never</span>
+                <span class="medium">Sometimes</span>
+                <span class="low">Often</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="connection">How connected do you feel with others around you?</label>
+            <input type="range" id="connection" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Isolated</span>
+                <span class="medium">Somewhat Connected</span>
+                <span class="high">Fully Connected</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="concentration">How well were you able to concentrate today?</label>
+            <input type="range" id="concentration" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Unfocused</span>
+                <span class="medium">Somewhat Focused</span>
+                <span class="high">Fully Focused</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="sleep">How well did you sleep last night?</label>
+            <input type="range" id="sleep" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Poor</span>
+                <span class="medium">Fair</span>
+                <span class="high">Excellent</span>
+            </div>
+        </div>
+        <!-- Physical Health Questions -->
+        <div class="question">
+            <label for="energy">How would you rate your physical energy level today?</label>
+            <input type="range" id="energy" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Exhausted</span>
+                <span class="medium">Moderate Energy</span>
+                <span class="high">Full of Energy</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="pain">How much physical discomfort or pain are you experiencing today?</label>
+            <input type="range" id="pain" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="high">No Pain</span>
+                <span class="medium">Moderate Pain</span>
+                <span class="low">Severe Pain</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="activity">How active were you today?</label>
+            <input type="range" id="activity" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Inactive</span>
+                <span class="medium">Moderately Active</span>
+                <span class="high">Very Active</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="nutrition">How well have you been eating today?</label>
+            <input type="range" id="nutrition" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Poor Nutrition</span>
+                <span class="medium">Adequate Nutrition</span>
+                <span class="high">Excellent Nutrition</span>
+            </div>
+        </div>
+        <div class="question">
+            <label for="breathing">How is your breathing today?</label>
+            <input type="range" id="breathing" class="slider" min="1" max="3" step="1" value="2">
+            <div class="slider-range">
+                <span class="low">Struggling to Breathe</span>
+                <span class="medium">Normal Breathing</span>
+                <span class="high">Easy Breathing</span>
+            </div>
+        </div>
+        <button type="button" class="btn" onclick="saveData()">Submit</button>
+    </form>
+
+    <script>
+        function saveData() {
+            const formData = {
+                date: new Date().toLocaleDateString(),
+                mood: document.getElementById("mood").value,
+                anxiety: document.getElementById("anxiety").value,
+                connection: document.getElementById("connection").value,
+                concentration: document.getElementById("concentration").value,
+                sleep: document.getElementById("sleep").value,
+                energy: document.getElementById("energy").value,
+                pain: document.getElementById("pain").value,
+                activity: document.getElementById("activity").value,
+                nutrition: document.getElementById("nutrition").value,
+                breathing: document.getElementById("breathing").value
+            };
+
+            let healthData = JSON.parse(localStorage.getItem("healthData")) || [];
+            healthData.push(formData);
+            localStorage.setItem("healthData", JSON.stringify(healthData));
+
+            // Redirect to insights page
+            window.location.href = "insights.html";
+        }
+    </script>
+</body>
+</html>

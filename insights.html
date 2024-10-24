@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Needed for the floating button positioning */
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #76c7c0;
+            margin: 10px auto;
+        }
+        .summary-metrics {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .summary-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 25px;
+            margin: 15px 0;
+        }
+        .progress {
+            height: 100%;
+            background-color: #76c7c0;
+            border-radius: 5px;
+            text-align: center; /* Centering text */
+            padding-right: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        canvas {
+            margin: 40px 0;
+        }
+        .heatmap {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .calendar, .suggestions, .compare {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .calendar {
+            text-align: center;
+        }
+        .day-box {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: #ddd;
+            line-height: 30px;
+            font-size: 14px;
+            color: white;
+        }
+        .suggestions p, .compare p {
+            font-size: 16px;
+        }
+        .tooltip {
+            position: absolute;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .emoji {
+            font-size: 24px; /* Emoji size */
+            margin-right: 10px; /* Space between emoji and text */
+        }
+        /* Floating Button Styles */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #76c7c0;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .dropdown {
+            position: fixed;
+            bottom: 80px; /* Position above the button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .dropdown-item {
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: #f4a261; /* Change background on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Summary Metrics -->
+        <section class="section summary">
+            <h2>Key Metrics Overview</h2>
+            <div class="summary-metrics">
+                <div class="summary-item">
+                    <h3><span class="emoji">😊</span>Mood Score</h3>
+                    <div class="progress-bar">
+                        <div class="progress" id="mood-progress" style="width: 75%;">75%</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <h3><span class="emoji">💪</span>Physical Health Score</h3>
+                    <div class="progress-bar">
+                        <div class="progress" id="physical-progress" style="width: 65%;">65%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Correlation Heatmap -->
+        <section class="section calendar">
+            <h2>Mood and Physical Health Correlations</h2>
+            <div id=""></div>
+            <canvas id="laggedChart"></canvas>
+            <p>Your overall health improved significantly this week, especially on days when you had more sleep and activity.</p>
+        </section>
+
+        <!-- Calendar View -->
+        <section class="section calendar">
+            <h2>Daily Health Highlights</h2>
+            <div id="calendar-grid"></div>
+            <p>Your overall health improved significantly this week, especially on days when you had more sleep and activity.</p>
+        </section>
+
+        <!-- Suggestions & Comparisons -->
+        <section class="section suggestions">
+            <h2>Personalized Insights</h2>
+            <p><span class="emoji">🌙</span> On days with high sleep quality, your mood improves by 20%.</p>
+            <p><span class="emoji">🏃‍♂️</span> Increased physical activity positively correlates with better concentration.</p>
+        </section>
+
+        <section class="section compare">
+            <h2>Weekly Comparisons</h2>
+            <p>This week your physical health improved by 10%, and your anxiety decreased by 15% compared to last week.</p>
+        </section>
+    </div>
+
+    <!-- Floating Button -->
+    <button class="floating-button" id="hamburger-button">&#9776;</button>
+
+     <!-- Dropdown Menu -->
+     <div class="dropdown" id="dropdown-menu">
+        <a href="library.html" class="dropdown-item">Library</a>
+        <a href="external.html" class="dropdown-item">External Links</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+const ctx = document.getElementById('laggedChart').getContext('2d');
+
+// Updated data for Line 1 and Line 2 with ups and downs between 60 and 80
+const dataLine1 = [65, 72, 68, 75, 70, 78, 74];
+const dataLine2 = [61, 66, 73, 69, 73, 68, 76]; // Lagged by 1
+
+// Create the chart
+const laggedChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+        datasets: [
+            {
+                label: 'Physical Health',
+                data: dataLine1,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                fill: false,
+                tension: 0.4  // Smooth the line
+            },
+            {
+                label: 'Mood',
+                data: dataLine2,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: false,
+                tension: 0.4  // Smooth the line
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 60,  // Set minimum y-axis to 60
+                max: 80,  // Set maximum y-axis to 80
+                title: {
+                    display: true,
+                    text: 'Values'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Data Points'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    }
+});
+
+        // Calendar (example daily health highlights)
+        const calendarGrid = document.getElementById('calendar-grid');
+        for (let i = 1; i <= 30; i++) {
+            const dayBox = document.createElement('div');
+            dayBox.className = 'day-box';
+            dayBox.style.backgroundColor = (i % 5 === 0) ? '#76c7c0' : '#f4a261'; // Sample color for health
+            dayBox.innerHTML = i;
+            calendarGrid.appendChild(dayBox);
+        }
+
+        // Toggle dropdown menu
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        hamburgerButton.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+
+</body>
+</html>

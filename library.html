@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #76c7c0;
+            margin: 10px auto;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+        .card h3 {
+            color: #76c7c0;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        /* Floating Button Styles */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #76c7c0;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .dropdown {
+            position: fixed;
+            bottom: 80px; /* Position above the button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .dropdown-item {
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: #f4a261; /* Change background on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Audios Section -->
+        <section class="section" id="audios">
+            <h2>Audio Resources</h2>
+            <div class="card">
+                <h3>Podcast: Healthy Mindset</h3>
+                <p><strong>Description:</strong> A podcast focusing on mental health and wellness.</p>
+                <audio controls>
+                    <source src="audio/healthy-mindset.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="card">
+                <h3>Audio Guide: Meditation Techniques</h3>
+                <p><strong>Description:</strong> A guided meditation audio to help you relax and focus.</p>
+                <audio controls>
+                    <source src="audio/meditation-techniques.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
+
+        <!-- Text Section -->
+        <section class="section" id="text">
+            <h2>Reading Resources</h2>
+            <div class="card">
+                <h3>Article: The Importance of Mental Health</h3>
+                <p><strong>Description:</strong> An insightful article discussing the significance of mental health.</p>
+                <a href="articles/importance-of-mental-health.html">Read More</a>
+            </div>
+            <div class="card">
+                <h3>Guide: How to Maintain a Balanced Life</h3>
+                <p><strong>Description:</strong> A practical guide to help you achieve a balanced lifestyle.</p>
+                <a href="guides/balanced-life-guide.html">Read More</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Floating Button -->
+    <button class="floating-button" id="hamburger-button">&#9776;</button>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdown-menu">
+        <a href="insights.html" class="dropdown-item">Home</a>
+        <a href="external.html" class="dropdown-item">External Links</a>
+    </div>
+
+    <script>
+        // Toggle dropdown menu
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        hamburgerButton.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+
+</body>
+</html>

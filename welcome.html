@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 0;
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: #76c7c0;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #5baaa1;
+        }
+
+        .btn-signup {
+            background-color: #f4a261;
+        }
+
+        .btn-signup:hover {
+            background-color: #d98852;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .btn {
+                font-size: 16px;
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Welcome</h1>
+        <button class="btn btn-login" onclick="window.location.href='login.html'">Log In</button>
+        <button class="btn btn-signup" onclick="window.location.href='#'">Sign Up</button>
+    </div>
+
+</body>
+</html>
